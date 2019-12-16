@@ -1,0 +1,44 @@
+name: digital_clock
+description: Digital clock.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_clock_helper:
+    path: ../flutter_clock_helper
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: PressStart2P
+      fonts:
+        - asset: third_party/PressStart2P-Regular.ttf
+
+    - family: open_sans_semibold
+      fonts:
+        - asset: assets/fonts/open_sans_semibold.ttf
+
+    - family: digital-7
+      fonts:
+        - asset: assets/fonts/digital-7.mono.ttf
+
+    - family: DIGITALDREAM
+      fonts:
+        - asset: assets/fonts/DIGITALDREAMSKEWNARROW.ttf
+
+    - family: ledfontsharpRegular
+      fonts:
+        - asset: assets/fonts/ledfont-sharp-Regular.otf
+
+    - family: PolanCanIntoGlassMakings
+      fonts:
+        - asset: assets/fonts/PolanCanIntoGlassMakings.otf
