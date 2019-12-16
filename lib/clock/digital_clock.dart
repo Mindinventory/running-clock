@@ -66,18 +66,16 @@ class _DigitalClockState extends State<DigitalClock> {
     return Scaffold(
         body: Container(
           alignment: Alignment.center,
+          color: Colors.black,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Flexible(child: Hour(widget.model)),
+              Flexible(child: Hour1(widget.model)),
 
-                Text(':', style: Theme
-                    .of(context)
-                    .textTheme
-                    .display2.copyWith(color: Colors.black, fontWeight: FontWeight.w700),),
+                Text(':', textScaleFactor: 6, style: TextStyle(color: Colors.red, fontFamily: 'digital-7')),
 
-              Flexible(child: Minute()),
+              Flexible(child: Minute1()),
             ],
           ),
         )

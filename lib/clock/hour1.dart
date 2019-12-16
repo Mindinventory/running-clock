@@ -87,7 +87,7 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
 
     _timeLogic();
 
-    double left = 20;
+    double left = -20;
     double top = 40;
     double scale = 2.0;
     double opacity = 0.1;
@@ -95,8 +95,8 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
     return Stack(
         alignment: AlignmentDirectional.center,
         children: hourData.map((item) {
-          top = top + ((hourData.indexOf(item) + animProgress) * 6);
-          scale = scale + ((hourData.indexOf(item) + 1) * 0.2);
+          top = top + ((hourData.indexOf(item) + animProgress) * 7);
+          scale = scale + ((hourData.indexOf(item) + 1) * 0.3);
           opacity = opacity + 0.1;
 
           if (hourData.indexOf(item) == hourData.length - 1) {
@@ -111,7 +111,7 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
                     '$item   ',
                     style: TextStyle(
                         color: Colors.red,
-                        fontFamily: 'PolanCanIntoGlassMakings',
+                        fontFamily: 'digital-7',
                         fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -131,7 +131,7 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
                     '$item   ',
                     style: TextStyle(
                         color: Colors.red,
-                        fontFamily: 'PolanCanIntoGlassMakings',
+                        fontFamily: 'digital-7',
                         fontWeight: FontWeight.w700),
                   ),
                 ),
