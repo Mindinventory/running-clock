@@ -14,25 +14,23 @@ import 'minute_view.dart';
 
 enum _Element {
   background,
-  text,
-  shadow,
+  text1,
+  text2,
 }
 
 final _lightTheme = {
-  _Element.background: Color(0xFF81B3FE),
-  _Element.text: Colors.white,
-  _Element.shadow: Colors.black,
+  _Element.background: Colors.white,
+  _Element.text1: Color(0xFF0D47A1),
+  _Element.text2: Colors.white,
 };
 
 final _darkTheme = {
   _Element.background: Colors.black,
-  _Element.text: Colors.white,
-  _Element.shadow: Color(0xFF174EA6),
+  _Element.text1: Color(0xFF0D47A1),
+  _Element.text2: Colors.black,
 };
 
-/// A basic digital clock.
-///
-/// You can do better than this!
+
 class DigitalClock extends StatefulWidget {
   const DigitalClock(this.model);
 
@@ -66,16 +64,26 @@ class _DigitalClockState extends State<DigitalClock> {
     return Scaffold(
         body: Container(
           alignment: Alignment.center,
-          color: Colors.black,
+          color: colors[_Element.background],
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Flexible(child: Hour1(widget.model)),
+              Flexible(child: Hour1(widget.model, colors[_Element.text1],
+                  colors[_Element.text2])),
 
-                Text(':', textScaleFactor: 6, style: TextStyle(color: Colors.red, fontFamily: 'digital-7')),
+              Text(':', textScaleFactor: 6,
+                style: TextStyle(
+                    color: colors[_Element.text1],
+                    fontFamily: 'digital-7'),
+              ),
 
-              Flexible(child: Minute1()),
+
+              Flexible(child: Minute1(
+                  colors[_Element.text1], colors[_Element.text2])),
+
+
+
             ],
           ),
         )

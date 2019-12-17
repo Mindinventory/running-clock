@@ -3,6 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class Minute1 extends StatefulWidget {
+
+  final Color color1;
+  final Color color2;
+
+  Minute1(this.color1, this.color2);
+
   @override
   _MinuteState createState() => _MinuteState();
 }
@@ -73,16 +79,16 @@ class _MinuteState extends State<Minute1> with TickerProviderStateMixin {
     _timeLogic();
 
     double left = -20;
-    double top = 40;
+    double top = 30;
     double scale = 2.0;
-    double opacity = 0.1;
+    double opacity = 1.0;
 
     return Stack(
         alignment: AlignmentDirectional.center,
         children: minData.map((item) {
           top = top + ((minData.indexOf(item) + animProgress) * 7);
           scale = scale + ((minData.indexOf(item) + 1) * 0.3);
-          opacity = opacity + 0.1;
+          opacity = opacity - 0.3;
 
           if (minData.indexOf(item) == minData.length - 1) {
             return Positioned(
@@ -95,7 +101,7 @@ class _MinuteState extends State<Minute1> with TickerProviderStateMixin {
                   child: Text(
                     '   $item',
                     style: TextStyle(
-                        color: Colors.red,
+                        color: Color.lerp(widget.color1, widget.color2, opacity),
                         fontFamily: 'digital-7',
                         fontWeight: FontWeight.w700),
                   ),
@@ -106,19 +112,14 @@ class _MinuteState extends State<Minute1> with TickerProviderStateMixin {
             return Positioned(
               left: left,
               top: top,
-              child: Opacity(
-                opacity: (minData.indexOf(item) == minData.length - 2)
-                    ? 1.0
-                    : opacity,
-                child: Transform.scale(
-                  scale: scale,
-                  child: Text(
-                    '   $item',
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontFamily: 'digital-7',
-                        fontWeight: FontWeight.w700),
-                  ),
+              child: Transform.scale(
+                scale: scale,
+                child: Text(
+                  '   $item',
+                  style: TextStyle(
+                      color: Color.lerp(widget.color1, widget.color2, opacity),
+                      fontFamily: 'digital-7',
+                      fontWeight: FontWeight.w700),
                 ),
               ),
             );

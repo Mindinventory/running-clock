@@ -6,8 +6,10 @@ import 'package:flutter_clock_helper/model.dart';
 class Hour1 extends StatefulWidget {
 
   final ClockModel model;
+  final Color color1;
+  final Color color2;
 
-  Hour1(this.model);
+  Hour1(this.model, this.color1, this.color2);
 
   @override
   _MinuteState createState() => _MinuteState();
@@ -88,16 +90,16 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
     _timeLogic();
 
     double left = -20;
-    double top = 40;
+    double top = 30;
     double scale = 2.0;
-    double opacity = 0.1;
+    double opacity = 1.0;
 
     return Stack(
         alignment: AlignmentDirectional.center,
         children: hourData.map((item) {
           top = top + ((hourData.indexOf(item) + animProgress) * 7);
           scale = scale + ((hourData.indexOf(item) + 1) * 0.3);
-          opacity = opacity + 0.1;
+          opacity = opacity - 0.3;
 
           if (hourData.indexOf(item) == hourData.length - 1) {
             return Positioned(
@@ -110,7 +112,7 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
                   child: Text(
                     '$item   ',
                     style: TextStyle(
-                        color: Colors.red,
+                        color: Color.lerp(widget.color1, widget.color2, opacity),
                         fontFamily: 'digital-7',
                         fontWeight: FontWeight.w700),
                   ),
@@ -121,19 +123,14 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
             return Positioned(
               right: left,
               top: top,
-              child: Opacity(
-                opacity: (hourData.indexOf(item) == hourData.length - 2)
-                    ? 1.0
-                    : opacity,
-                child: Transform.scale(
-                  scale: scale,
-                  child: Text(
-                    '$item   ',
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontFamily: 'digital-7',
-                        fontWeight: FontWeight.w700),
-                  ),
+              child: Transform.scale(
+                scale: scale,
+                child: Text(
+                  '$item   ',
+                  style: TextStyle(
+                      color: Color.lerp(widget.color1, widget.color2, opacity),
+                      fontFamily: 'digital-7',
+                      fontWeight: FontWeight.w700),
                 ),
               ),
             );
