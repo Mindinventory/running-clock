@@ -90,16 +90,16 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
     _timeLogic();
 
     double left = -20;
-    double top = 30;
+    double top = 25;
     double scale = 2.0;
     double opacity = 1.0;
 
     return Stack(
         alignment: AlignmentDirectional.center,
         children: hourData.map((item) {
-          top = top + ((hourData.indexOf(item) + animProgress) * 7);
+          top = top + ((hourData.indexOf(item) + animProgress) * 8);
           scale = scale + ((hourData.indexOf(item) + 1) * 0.3);
-          opacity = opacity - 0.3;
+          opacity = opacity - 0.15;
 
           if (hourData.indexOf(item) == hourData.length - 1) {
             return Positioned(
@@ -125,12 +125,24 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
               top: top,
               child: Transform.scale(
                 scale: scale,
-                child: Text(
-                  '$item   ',
-                  style: TextStyle(
-                      color: Color.lerp(widget.color1, widget.color2, opacity),
-                      fontFamily: 'digital-7',
-                      fontWeight: FontWeight.w700),
+                child: Stack(
+                  children: <Widget>[
+                    Text(
+                      '88   ',
+                      style: TextStyle(
+                          color: Colors.red.withOpacity(0.1),
+                          fontFamily: 'digital-7',
+                          fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      '$item   ',
+                      style: TextStyle(
+                          color: Color.lerp(widget.color1, widget.color2, hourData.indexOf(item) == (hourData.length - 2) ? 0.0 : opacity),
+                          fontFamily: 'digital-7',
+                          fontWeight: FontWeight.w700),
+                    ),
+
+                  ],
                 ),
               ),
             );

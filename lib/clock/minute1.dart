@@ -79,16 +79,16 @@ class _MinuteState extends State<Minute1> with TickerProviderStateMixin {
     _timeLogic();
 
     double left = -20;
-    double top = 30;
+    double top = 25;
     double scale = 2.0;
     double opacity = 1.0;
 
     return Stack(
         alignment: AlignmentDirectional.center,
         children: minData.map((item) {
-          top = top + ((minData.indexOf(item) + animProgress) * 7);
+          top = top + ((minData.indexOf(item) + animProgress) * 8);
           scale = scale + ((minData.indexOf(item) + 1) * 0.3);
-          opacity = opacity - 0.3;
+          opacity = opacity - 0.15;
 
           if (minData.indexOf(item) == minData.length - 1) {
             return Positioned(
@@ -112,17 +112,28 @@ class _MinuteState extends State<Minute1> with TickerProviderStateMixin {
             return Positioned(
               left: left,
               top: top,
-              child: Transform.scale(
-                scale: scale,
-                child: Text(
-                  '   $item',
-                  style: TextStyle(
-                      color: Color.lerp(widget.color1, widget.color2, opacity),
-                      fontFamily: 'digital-7',
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-            );
+                child: Transform.scale(
+                  scale: scale,
+                  child: Stack(
+                    children: <Widget>[
+                      Text(
+                        '   88',
+                        style: TextStyle(
+                            color: Colors.red.withOpacity(0.1),
+                            fontFamily: 'digital-7',
+                            fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        '   ${item}',
+                        style: TextStyle(
+                            color: Color.lerp(widget.color1, widget.color2, minData.indexOf(item) == (minData.length - 2) ? 0.0 : opacity),
+                            fontFamily: 'digital-7',
+                            fontWeight: FontWeight.w700),
+                      ),
+
+                    ],
+                  ),
+                ));
           }
         }).toList());
   }

@@ -20,13 +20,13 @@ enum _Element {
 
 final _lightTheme = {
   _Element.background: Colors.white,
-  _Element.text1: Color(0xFF0D47A1),
+  _Element.text1: Colors.red,
   _Element.text2: Colors.white,
 };
 
 final _darkTheme = {
   _Element.background: Colors.black,
-  _Element.text1: Color(0xFF0D47A1),
+  _Element.text1: Colors.red,
   _Element.text2: Colors.black,
 };
 
