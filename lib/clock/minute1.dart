@@ -1,13 +1,22 @@
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'common.dart';
 
 class Minute1 extends StatefulWidget {
-
   final Color color1;
   final Color color2;
+  final double left;
+  final double top;
+  final double scale;
+  final double opacity;
 
-  Minute1(this.color1, this.color2);
+  final double topProgress;
+  final double scaleProgress;
+  final double colorIntense;
+
+  Minute1(this.color1, this.color2, this.left, this.top, this.scale,
+      this.opacity, this.topProgress, this.scaleProgress, this.colorIntense);
 
   @override
   _MinuteState createState() => _MinuteState();
@@ -37,17 +46,24 @@ class _MinuteState extends State<Minute1> with TickerProviderStateMixin {
     _updateTime();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
+
   void _updateTime() {
     setState(() {
       _dateTime = DateTime.now();
-      _timer = Timer(Duration(minutes: 1) -
-          Duration(seconds: _dateTime.second) -
-          Duration(milliseconds: _dateTime.millisecond),
+      _timer = Timer(
+        Duration(minutes: 1) -
+            Duration(seconds: _dateTime.second) -
+            Duration(milliseconds: _dateTime.millisecond),
         _updateTime,
       );
 
       _animationController.forward(from: 0.25);
-      _animationController.animateTo(1.0, curve: Curves.decelerate);
+      _animationController.animateTo(1.0, curve: Curves.easeOut);
     });
   }
 
@@ -75,66 +91,65 @@ class _MinuteState extends State<Minute1> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     _timeLogic();
 
-    double left = -20;
-    double top = 25;
-    double scale = 2.0;
-    double opacity = 1.0;
+    double left = widget.left;
+    double top = widget.top;
+    double scale = widget.scale;
+    double opacity = widget.opacity;
 
-    return Stack(
-        alignment: AlignmentDirectional.center,
-        children: minData.map((item) {
-          top = top + ((minData.indexOf(item) + animProgress) * 8);
-          scale = scale + ((minData.indexOf(item) + 1) * 0.3);
-          opacity = opacity - 0.15;
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.only(top: 10, bottom: 10),
+        child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: minData.map((item) {
+              top = top + ((minData.indexOf(item) + animProgress) * widget.topProgress);
+              scale = scale + (((minData.indexOf(item) * (minData.indexOf(item) + 0.5) ) + animProgress) * widget.scaleProgress);
+              opacity = opacity - widget.colorIntense;
 
-          if (minData.indexOf(item) == minData.length - 1) {
-            return Positioned(
-              left: left,
-              top: top,
-              child: Opacity(
-                opacity: 1 - animProgress,
-                child: Transform.scale(
-                  scale: scale,
-                  child: Text(
-                    '   $item',
-                    style: TextStyle(
-                        color: Color.lerp(widget.color1, widget.color2, opacity),
-                        fontFamily: 'digital-7',
-                        fontWeight: FontWeight.w700),
+              if (minData.indexOf(item) == minData.length - 1) {
+                return Positioned(
+                  left: left,
+                  top: top,
+                  child: Opacity(
+                    opacity: 1 - animProgress,
+                    child: Transform.scale(
+                      scale: scale,
+                      child: textViews(
+                          false,
+                          item,
+                          Color.lerp(widget.color1, widget.color2, opacity),
+                          FontWeight.w700),
+                    ),
                   ),
-                ),
-              ),
-            );
-          } else {
-            return Positioned(
-              left: left,
-              top: top,
-                child: Transform.scale(
-                  scale: scale,
-                  child: Stack(
-                    children: <Widget>[
-                      Text(
-                        '   88',
-                        style: TextStyle(
-                            color: Colors.red.withOpacity(0.1),
-                            fontFamily: 'digital-7',
-                            fontWeight: FontWeight.w700),
+                );
+              } else {
+                return Positioned(
+                    left: left,
+                    top: top,
+                    child: Transform.scale(
+                      scale: scale,
+                      child: Stack(
+                        children: <Widget>[
+                          textViews(false, '88', widget.color1.withOpacity(0.05),
+                              FontWeight.w200),
+                          textViews(
+                              false,
+                              item,
+                              Color.lerp(
+                                  widget.color1,
+                                  widget.color2,
+                                  minData.indexOf(item) == (minData.length - 2)
+                                      ? 0.0
+                                      : opacity),
+                              FontWeight.w700)
+                        ],
                       ),
-                      Text(
-                        '   ${item}',
-                        style: TextStyle(
-                            color: Color.lerp(widget.color1, widget.color2, minData.indexOf(item) == (minData.length - 2) ? 0.0 : opacity),
-                            fontFamily: 'digital-7',
-                            fontWeight: FontWeight.w700),
-                      ),
-
-                    ],
-                  ),
-                ));
-          }
-        }).toList());
+                    ));
+              }
+            }).toList()),
+      ),
+    );
   }
 }

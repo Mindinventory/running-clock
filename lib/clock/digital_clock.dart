@@ -2,15 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the
 
-import 'dart:async';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'hour1.dart';
-import 'hour_view.dart';
 import 'minute1.dart';
-import 'minute_view.dart';
 
 enum _Element {
   background,
@@ -20,16 +17,15 @@ enum _Element {
 
 final _lightTheme = {
   _Element.background: Colors.white,
-  _Element.text1: Colors.red,
+  _Element.text1: Colors.deepOrange,
   _Element.text2: Colors.white,
 };
 
 final _darkTheme = {
   _Element.background: Colors.black,
-  _Element.text1: Colors.red,
+  _Element.text1: Colors.cyan,
   _Element.text2: Colors.black,
 };
-
 
 class DigitalClock extends StatefulWidget {
   const DigitalClock(this.model);
@@ -41,6 +37,8 @@ class DigitalClock extends StatefulWidget {
 }
 
 class _DigitalClockState extends State<DigitalClock> {
+
+  final gemScale = 4.0;
 
   @override
   void initState() {
@@ -55,11 +53,19 @@ class _DigitalClockState extends State<DigitalClock> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme
-        .of(context)
-        .brightness == Brightness.light
+    final colors = Theme.of(context).brightness == Brightness.light
         ? _lightTheme
         : _darkTheme;
+
+    final width = MediaQuery.of(context).size.width;
+
+    final left = _isPortrait(context) ? -10.0 : -20.0;
+    final top = _isPortrait(context) ? 10.0 : 10.0;
+    final scale = _isPortrait(context) ? 1.5 : 2.0;
+    final opacity = 1.0;
+    final topProgress = _isPortrait(context) ? 10.0 : 13.0;
+    final scaleProgress = _isPortrait(context) ? 0.2 : 0.3;
+    final colorIntense = _isPortrait(context) ? 0.15 : 0.1;
 
     return Scaffold(
         body: Container(
@@ -69,24 +75,77 @@ class _DigitalClockState extends State<DigitalClock> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Flexible(child: Hour1(widget.model, colors[_Element.text1],
-                  colors[_Element.text2])),
 
-              Text(':', textScaleFactor: 6,
+              Hour1(
+                  widget.model,
+                  colors[_Element.text1],
+                  colors[_Element.text2],
+                  left,
+                  top,
+                  scale,
+                  opacity,
+                  topProgress,
+                  scaleProgress,
+                  colorIntense),
+
+              Text(
+                ':',
+                textScaleFactor: gemScale,
                 style: TextStyle(
                     color: colors[_Element.text1],
-                    fontFamily: 'digital-7'),
+                    fontFamily: 'LCD14M',
+                    fontWeight: FontWeight.w900),
               ),
 
+              Minute1(
+                  colors[_Element.text1],
+                  colors[_Element.text2],
+                  left,
+                  top,
+                  scale,
+                  opacity,
+                  topProgress,
+                  scaleProgress,
+                  colorIntense),
 
-              Flexible(child: Minute1(
-                  colors[_Element.text1], colors[_Element.text2])),
-
-
+              Container(
+                width: 100,
+                alignment: Alignment.centerLeft,
+                child: _amPM(),
+              ),
 
             ],
           ),
-        )
+        ));
+  }
+
+  Widget _amPM() {
+    final hr = int.parse(DateFormat('HH').format(DateTime.now()));
+    if (widget.model.is24HourFormat) {
+      return Container();
+    } else {
+      if (hr >= 12) {
+        return _textViews('PM');
+      } else {
+        return _textViews('AM');
+      }
+    }
+  }
+
+  Widget _textViews(String text) {
+    return Text(
+      text,
+      textScaleFactor: gemScale,
+      style: TextStyle(
+          color: (Theme.of(context).brightness == Brightness.light)
+              ? Colors.deepOrange
+              : Colors.cyan,
+          fontFamily: 'LCD14M',
+          fontWeight: FontWeight.w700),
     );
+  }
+
+  static bool _isPortrait(BuildContext context) {
+    return (MediaQuery.of(context).orientation == Orientation.portrait) ? true : false;
   }
 }
