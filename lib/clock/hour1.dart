@@ -18,7 +18,6 @@ class Hour1 extends StatefulWidget {
   final double scaleProgress;
   final double colorIntense;
 
-
   Hour1(this.model, this.color1, this.color2, this.right, this.top, this.scale,
       this.opacity, this.topProgress, this.scaleProgress, this.colorIntense);
 
@@ -131,8 +130,10 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
                       child: textViews(
                           true,
                           item,
-                          Color.lerp(widget.color1, widget.color2, opacity),
-                          FontWeight.w700),
+                          widget.color2,
+                          opacity,
+//                          Color.lerp(widget.color1, widget.color2, opacity),
+                          FontWeight.w100),
                     ),
                   ),
                 );
@@ -144,18 +145,22 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
                     scale: scale,
                     child: Stack(
                       children: <Widget>[
-                        textViews(true, '88', widget.color1.withOpacity(0.05),
-                            FontWeight.w200),
+                        /*textViews(true, '88', widget.color1.withOpacity(0.05),
+                            FontWeight.w200),*/
                         textViews(
                             true,
                             item,
-                            Color.lerp(
-                                widget.color1,
-                                widget.color2,
-                                hourData.indexOf(item) == (hourData.length - 2)
-                                    ? 0.0
-                                    : opacity),
-                            FontWeight.w700)
+                            widget.color2,
+                            hourData.indexOf(item) == (hourData.length - 2)
+                                ? 0.0
+                                : opacity,
+//                            Color.lerp(
+//                                widget.color1,
+//                                widget.color2,
+//                                hourData.indexOf(item) == (hourData.length - 2)
+//                                    ? 0.0
+//                                    : opacity),
+                            FontWeight.w100)
                       ],
                     ),
                   ),

@@ -99,56 +99,63 @@ class _MinuteState extends State<Minute1> with TickerProviderStateMixin {
     double opacity = widget.opacity;
 
     return Expanded(
-      child: Padding(
-        padding: EdgeInsets.only(top: 10, bottom: 10),
-        child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: minData.map((item) {
-              top = top + ((minData.indexOf(item) + animProgress) * widget.topProgress);
-              scale = scale + (((minData.indexOf(item) * (minData.indexOf(item) + 0.5) ) + animProgress) * widget.scaleProgress);
-              opacity = opacity - widget.colorIntense;
+      child: Container(
+//        color: Colors.grey,
+        child: Padding(
+          padding: EdgeInsets.only(top: 10, bottom: 10),
+          child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: minData.map((item) {
+                top = top + ((minData.indexOf(item) + animProgress) * widget.topProgress);
+                scale = scale + (((minData.indexOf(item) * (minData.indexOf(item) + 0.5) ) + animProgress) * widget.scaleProgress);
+                opacity = opacity - widget.colorIntense;
 
-              if (minData.indexOf(item) == minData.length - 1) {
-                return Positioned(
-                  left: left,
-                  top: top,
-                  child: Opacity(
-                    opacity: 1 - animProgress,
-                    child: Transform.scale(
-                      scale: scale,
-                      child: textViews(
-                          false,
-                          item,
-                          Color.lerp(widget.color1, widget.color2, opacity),
-                          FontWeight.w700),
-                    ),
-                  ),
-                );
-              } else {
-                return Positioned(
+                if (minData.indexOf(item) == minData.length - 1) {
+                  return Positioned(
                     left: left,
                     top: top,
-                    child: Transform.scale(
-                      scale: scale,
-                      child: Stack(
-                        children: <Widget>[
-                          textViews(false, '88', widget.color1.withOpacity(0.05),
-                              FontWeight.w200),
-                          textViews(
-                              false,
-                              item,
-                              Color.lerp(
-                                  widget.color1,
-                                  widget.color2,
-                                  minData.indexOf(item) == (minData.length - 2)
-                                      ? 0.0
-                                      : opacity),
-                              FontWeight.w700)
-                        ],
+                    child: Opacity(
+                      opacity: 1 - animProgress,
+                      child: Transform.scale(
+                        scale: scale,
+                        child: textViews(
+                            false,
+                            item,
+                            widget.color2,
+                            opacity,
+//                            Color.lerp(widget.color1, widget.color2, opacity),
+                            FontWeight.w100),
                       ),
-                    ));
-              }
-            }).toList()),
+                    ),
+                  );
+                } else {
+                  return Positioned(
+                      left: left,
+                      top: top,
+                      child: Transform.scale(
+                        scale: scale,
+                        child: Stack(
+                          children: <Widget>[
+                            /*textViews(false, '88', widget.color1.withOpacity(0.05),
+                                FontWeight.w200),*/
+                            textViews(
+                                false,
+                                item,
+                                widget.color2,
+                                minData.indexOf(item) == (minData.length - 2) ? 0.0 : opacity,
+//                                Color.lerp(
+//                                    widget.color1,
+//                                    widget.color2,
+//                                    minData.indexOf(item) == (minData.length - 2)
+//                                        ? 0.0
+//                                        : opacity),
+                                FontWeight.w100)
+                          ],
+                        ),
+                      ));
+                }
+              }).toList()),
+        ),
       ),
     );
   }

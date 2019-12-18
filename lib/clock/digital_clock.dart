@@ -38,7 +38,7 @@ class DigitalClock extends StatefulWidget {
 
 class _DigitalClockState extends State<DigitalClock> {
 
-  final gemScale = 4.0;
+  final gemScale = 6.0;
 
   @override
   void initState() {
@@ -59,13 +59,13 @@ class _DigitalClockState extends State<DigitalClock> {
 
     final width = MediaQuery.of(context).size.width;
 
-    final left = _isPortrait(context) ? -10.0 : -20.0;
+    final left = _isPortrait(context) ? 20.0 : 40.0;
     final top = _isPortrait(context) ? 10.0 : 10.0;
-    final scale = _isPortrait(context) ? 1.5 : 2.0;
+    final scale = _isPortrait(context) ? 1.5 : 4.0;
     final opacity = 1.0;
     final topProgress = _isPortrait(context) ? 10.0 : 13.0;
-    final scaleProgress = _isPortrait(context) ? 0.2 : 0.3;
-    final colorIntense = _isPortrait(context) ? 0.15 : 0.1;
+    final scaleProgress = _isPortrait(context) ? 0.2 : 0.15;
+    final colorIntense = _isPortrait(context) ? 0.15 : 0.2;
 
     return Scaffold(
         body: Container(
@@ -74,6 +74,7 @@ class _DigitalClockState extends State<DigitalClock> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
+
             children: <Widget>[
 
               Hour1(
@@ -88,14 +89,16 @@ class _DigitalClockState extends State<DigitalClock> {
                   scaleProgress,
                   colorIntense),
 
-              Text(
-                ':',
+              /*Text(
+                ' : ',
                 textScaleFactor: gemScale,
                 style: TextStyle(
+                  letterSpacing: -4.0,
                     color: colors[_Element.text1],
-                    fontFamily: 'LCD14M',
+                    fontFamily: 'BBrick',
                     fontWeight: FontWeight.w900),
-              ),
+              ),*/
+              SizedBox(width: 100,),
 
               Minute1(
                   colors[_Element.text1],
@@ -108,11 +111,11 @@ class _DigitalClockState extends State<DigitalClock> {
                   scaleProgress,
                   colorIntense),
 
-              Container(
+              /*Container(
                 width: 100,
                 alignment: Alignment.centerLeft,
                 child: _amPM(),
-              ),
+              ),*/
 
             ],
           ),
@@ -135,13 +138,13 @@ class _DigitalClockState extends State<DigitalClock> {
   Widget _textViews(String text) {
     return Text(
       text,
-      textScaleFactor: gemScale,
+      textScaleFactor: gemScale-2.5,
       style: TextStyle(
           color: (Theme.of(context).brightness == Brightness.light)
               ? Colors.deepOrange
               : Colors.cyan,
-          fontFamily: 'LCD14M',
-          fontWeight: FontWeight.w700),
+          fontFamily: 'BBrick',
+          fontWeight: FontWeight.w200),
     );
   }
 

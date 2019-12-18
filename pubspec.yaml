@@ -11,6 +11,7 @@ dependencies:
   flutter_clock_helper:
     path: ../flutter_clock_helper
   cupertino_icons: ^0.1.2
+  gradient_text: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -30,4 +31,12 @@ flutter:
     - family: ledfontsharpRegular
       fonts:
         - asset: assets/fonts/ledfont-sharp-Regular.otf
+
+    - family: BBrick
+      fonts:
+        - asset: assets/fonts/BBrick.otf
+
+    - family: BananaBrickTweaked
+      fonts:
+        - asset: assets/fonts/BananaBrickTweaked.otf
 
