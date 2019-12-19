@@ -5,27 +5,25 @@ import 'package:flutter_clock_helper/model.dart';
 
 import 'common.dart';
 
-class Hour1 extends StatefulWidget {
+class HourView extends StatefulWidget {
   final ClockModel model;
-  final Color color1;
   final Color color2;
   final double right;
   final double top;
   final double scale;
   final double opacity;
-
   final double topProgress;
   final double scaleProgress;
   final double colorIntense;
 
-  Hour1(this.model, this.color1, this.color2, this.right, this.top, this.scale,
+  HourView(this.model, this.color2, this.right, this.top, this.scale,
       this.opacity, this.topProgress, this.scaleProgress, this.colorIntense);
 
   @override
   _MinuteState createState() => _MinuteState();
 }
 
-class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
+class _MinuteState extends State<HourView> with TickerProviderStateMixin {
   DateTime _dateTime;
   Timer _timer;
 
@@ -46,16 +44,19 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
     )..addListener(() => setState(() {
           animProgress = _animationController.value;
         }));
+
     _animationController.reverse();
     _updateTime();
   }
 
+  // Disposing animation controller
   @override
   void dispose() {
     super.dispose();
     _animationController.dispose();
   }
 
+  // Animating the controller in each hour
   void _updateTime() {
     setState(() {
       _dateTime = DateTime.now();
@@ -78,9 +79,11 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
 
     List<String> data = [];
 
-    // Handling if minute is greater than 60
+    // Calculating the next hours
     for (int i = 3; i >= -1; i--) {
       var nextHour = int.parse(hour) + i;
+
+      // Handling if hour is greater than 12 or 24
       if (widget.model.is24HourFormat) {
         if (nextHour > 23) {
           nextHour = nextHour - 24;
@@ -92,6 +95,7 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
       }
       var nextHourStr = nextHour.toString();
 
+      // Handling if hour is less than 9
       if (nextHour < 10) {
         nextHourStr = '0${nextHour.toString()}';
       }
@@ -110,64 +114,64 @@ class _MinuteState extends State<Hour1> with TickerProviderStateMixin {
     double opacity = widget.opacity;
 
     return Expanded(
-      child: Padding(
-        padding: EdgeInsets.only(top: 10, bottom: 10),
-        child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: hourData.map((item) {
-              top = top + ((hourData.indexOf(item) + animProgress) * widget.topProgress);
-              scale = scale + (((hourData.indexOf(item) * (hourData.indexOf(item) + 0.5) ) + animProgress) * widget.scaleProgress);
-              opacity = opacity - widget.colorIntense;
+      child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: hourData.map((item) {
 
-              if (hourData.indexOf(item) == hourData.length - 1) {
-                return Positioned(
-                  right: right,
-                  top: top,
-                  child: Opacity(
-                    opacity: 1 - animProgress,
-                    child: Transform.scale(
-                      scale: scale,
-                      child: textViews(
+
+            // Calculating the values for position and animation
+            final index = hourData.indexOf(item);
+            top = top + ((index + animProgress) * widget.topProgress);
+            scale = scale +
+                (((index * (index + 0.5)) + animProgress) *
+                    widget.scaleProgress);
+            opacity = opacity - widget.colorIntense;
+
+            // Logic for first element that is zooming out
+            if (index == hourData.length - 1) {
+              return Positioned(
+                right: right,
+                top: top,
+                child: Opacity(
+                  opacity: 1 - animProgress,
+                  child: Transform.scale(
+                    scale: scale,
+                    child: textViews(
+                        (Theme.of(context).brightness == Brightness.light)
+                            ? false
+                            : true,
+                        true,
+                        item,
+                        widget.color2,
+                        opacity,
+                        FontWeight.w100),
+                  ),
+                ),
+              );
+            } else {
+              // Logic for rest of the elements
+              return Positioned(
+                right: right,
+                top: top,
+                child: Transform.scale(
+                  scale: scale,
+                  child: Stack(
+                    children: <Widget>[
+                      textViews(
+                          (Theme.of(context).brightness == Brightness.light)
+                              ? false
+                              : true,
                           true,
                           item,
                           widget.color2,
-                          opacity,
-//                          Color.lerp(widget.color1, widget.color2, opacity),
-                          FontWeight.w100),
-                    ),
+                          index == (hourData.length - 2) ? 0.0 : opacity,
+                          FontWeight.w100)
+                    ],
                   ),
-                );
-              } else {
-                return Positioned(
-                  right: right,
-                  top: top,
-                  child: Transform.scale(
-                    scale: scale,
-                    child: Stack(
-                      children: <Widget>[
-                        /*textViews(true, '88', widget.color1.withOpacity(0.05),
-                            FontWeight.w200),*/
-                        textViews(
-                            true,
-                            item,
-                            widget.color2,
-                            hourData.indexOf(item) == (hourData.length - 2)
-                                ? 0.0
-                                : opacity,
-//                            Color.lerp(
-//                                widget.color1,
-//                                widget.color2,
-//                                hourData.indexOf(item) == (hourData.length - 2)
-//                                    ? 0.0
-//                                    : opacity),
-                            FontWeight.w100)
-                      ],
-                    ),
-                  ),
-                );
-              }
-            }).toList()),
-      ),
+                ),
+              );
+            }
+          }).toList()),
     );
   }
 }

@@ -1,11 +1,12 @@
-# Digital Clock
+# Running Digital Clock
 
-This app is an example of a digital clock.
-It has a light theme and a dark theme.
-See the [Analog Clock](../analog_clock) if you'd like an example that displays the weather and location.
+This project aims to provide a simple animated digital clock with dark and light mode.
 
-<img src='digital.gif' width='350'>
-
-<img src='digital_dark.png' width='350'>
-
-<img src='digital_light.png' width='350'>
+## Preview
+ ![image]( "Title")
+ 
+## Key Features
+It supports the following thing:
+- Both 12 and 24 hours format.  
+- Dark and light mode
+- Animation when the time changes(both for minute and hour)

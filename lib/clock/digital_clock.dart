@@ -4,27 +4,20 @@
 
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import 'hour1.dart';
-import 'minute1.dart';
+import 'hour.dart';
+import 'minute.dart';
 
 enum _Element {
   background,
-  text1,
-  text2,
 }
 
 final _lightTheme = {
   _Element.background: Colors.white,
-  _Element.text1: Colors.deepOrange,
-  _Element.text2: Colors.white,
 };
 
 final _darkTheme = {
   _Element.background: Colors.black,
-  _Element.text1: Colors.cyan,
-  _Element.text2: Colors.black,
 };
 
 class DigitalClock extends StatefulWidget {
@@ -37,8 +30,6 @@ class DigitalClock extends StatefulWidget {
 }
 
 class _DigitalClockState extends State<DigitalClock> {
-
-  final gemScale = 6.0;
 
   @override
   void initState() {
@@ -57,10 +48,9 @@ class _DigitalClockState extends State<DigitalClock> {
         ? _lightTheme
         : _darkTheme;
 
-    final width = MediaQuery.of(context).size.width;
-
+    // Initializations of values
     final left = _isPortrait(context) ? 20.0 : 40.0;
-    final top = _isPortrait(context) ? 10.0 : 10.0;
+    final top = _isPortrait(context) ? 20.0 : 25.0;
     final scale = _isPortrait(context) ? 1.5 : 4.0;
     final opacity = 1.0;
     final topProgress = _isPortrait(context) ? 10.0 : 13.0;
@@ -70,17 +60,17 @@ class _DigitalClockState extends State<DigitalClock> {
     return Scaffold(
         body: Container(
           alignment: Alignment.center,
-          color: colors[_Element.background],
+          color: colors[_Element.background], // Changing background color according to dark and light theme
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
 
+            // Arranging the hour and minute stack
             children: <Widget>[
 
-              Hour1(
+              HourView(
                   widget.model,
-                  colors[_Element.text1],
-                  colors[_Element.text2],
+                  colors[_Element.background],
                   left,
                   top,
                   scale,
@@ -89,20 +79,10 @@ class _DigitalClockState extends State<DigitalClock> {
                   scaleProgress,
                   colorIntense),
 
-              /*Text(
-                ' : ',
-                textScaleFactor: gemScale,
-                style: TextStyle(
-                  letterSpacing: -4.0,
-                    color: colors[_Element.text1],
-                    fontFamily: 'BBrick',
-                    fontWeight: FontWeight.w900),
-              ),*/
-              SizedBox(width: 100,),
+              SizedBox(width: 100),
 
-              Minute1(
-                  colors[_Element.text1],
-                  colors[_Element.text2],
+              MinuteView(
+                  colors[_Element.background],
                   left,
                   top,
                   scale,
@@ -110,44 +90,12 @@ class _DigitalClockState extends State<DigitalClock> {
                   topProgress,
                   scaleProgress,
                   colorIntense),
-
-              /*Container(
-                width: 100,
-                alignment: Alignment.centerLeft,
-                child: _amPM(),
-              ),*/
-
             ],
           ),
         ));
   }
 
-  Widget _amPM() {
-    final hr = int.parse(DateFormat('HH').format(DateTime.now()));
-    if (widget.model.is24HourFormat) {
-      return Container();
-    } else {
-      if (hr >= 12) {
-        return _textViews('PM');
-      } else {
-        return _textViews('AM');
-      }
-    }
-  }
-
-  Widget _textViews(String text) {
-    return Text(
-      text,
-      textScaleFactor: gemScale-2.5,
-      style: TextStyle(
-          color: (Theme.of(context).brightness == Brightness.light)
-              ? Colors.deepOrange
-              : Colors.cyan,
-          fontFamily: 'BBrick',
-          fontWeight: FontWeight.w200),
-    );
-  }
-
+  // Determines whether in landScape or portrait mode
   static bool _isPortrait(BuildContext context) {
     return (MediaQuery.of(context).orientation == Orientation.portrait) ? true : false;
   }
