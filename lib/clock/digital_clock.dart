@@ -13,7 +13,7 @@ enum _Element {
 }
 
 final _lightTheme = {
-  _Element.background: Colors.white,
+  _Element.background: Color.lerp(Color(0xffE374E9), Color(0xff462D66), 0.5),
 };
 
 final _darkTheme = {
@@ -48,14 +48,19 @@ class _DigitalClockState extends State<DigitalClock> {
         ? _lightTheme
         : _darkTheme;
 
+    final valueTop = _isPortrait(context) ? 15 : 25;
+    final valueTopProgress = _isPortrait(context) ? 8.5 : 8.0;
+    final boxHeight = _isPortrait(context) ? ((MediaQuery.of(context).size.width/5) * 3) : MediaQuery.of(context).size.height;
+
     // Initializations of values
     final left = _isPortrait(context) ? 20.0 : 40.0;
-    final top = _isPortrait(context) ? 20.0 : 25.0;
-    final scale = _isPortrait(context) ? 1.5 : 4.0;
+    final top = _isPortrait(context) ? ((boxHeight * valueTop) / 225)
+        : (boxHeight * valueTop) / 225;
+    final scale = _isPortrait(context) ? 2.0 : 4.0;
     final opacity = 1.0;
-    final topProgress = _isPortrait(context) ? 10.0 : 13.0;
-    final scaleProgress = _isPortrait(context) ? 0.2 : 0.15;
-    final colorIntense = _isPortrait(context) ? 0.15 : 0.2;
+    final topProgress = (boxHeight * valueTopProgress) / 225;
+    final scaleProgress = _isPortrait(context) ? 0.25 : 0.25;
+    final colorIntense = _isPortrait(context) ? 0.15 : 0.3;
 
     return Scaffold(
         body: Container(
@@ -79,7 +84,7 @@ class _DigitalClockState extends State<DigitalClock> {
                   scaleProgress,
                   colorIntense),
 
-              SizedBox(width: 100),
+              SizedBox(width: _isPortrait(context) ? 130 : 150),
 
               MinuteView(
                   colors[_Element.background],

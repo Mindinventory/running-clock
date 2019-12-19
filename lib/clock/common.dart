@@ -5,8 +5,8 @@ Widget textViews(bool isDarkMode, bool isHour, String text, Color color,
     double opacity, FontWeight weight) {
 
   final lightColors = [
-    Color.lerp(Colors.orange[800], color, opacity),
-    Color.lerp(Colors.orange[900], color, opacity)
+    Color.lerp(Colors.white, color, opacity),
+    Color.lerp(Colors.white, color, opacity)
   ];
 
   final darkColors = [
