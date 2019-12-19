@@ -3,7 +3,7 @@
 This project aims to provide a simple animated digital clock with dark and light mode.
 
 ## Preview
- ![image]( "Title")
+ ![image](https://git.mindinventory.com/mi-flutter/running_clock/raw/banana_brick_font/media/clock_dark_mode.png "Title")
  
 ## Key Features
 It supports the following thing:
