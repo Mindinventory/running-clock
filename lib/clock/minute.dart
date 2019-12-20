@@ -142,19 +142,15 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
                   top: top,
                   child: Transform.scale(
                     scale: scale,
-                    child: Stack(
-                      children: <Widget>[
-                        textViews(
-                            (Theme.of(context).brightness == Brightness.light)
-                                ? false
-                                : true,
-                            false,
-                            item,
-                            widget.color,
-                            index == (minData.length - 2) ? 0.0 : opacity,
-                            FontWeight.w100)
-                      ],
-                    ),
+                    child: textViews(
+                        (Theme.of(context).brightness == Brightness.light)
+                            ? false
+                            : true,
+                        false,
+                        item,
+                        widget.color,
+                        index == (minData.length - 2) ? 0.0 : opacity,
+                        FontWeight.w100),
                   ));
             }
           }).toList()),
