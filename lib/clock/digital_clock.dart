@@ -10,7 +10,6 @@ import 'hour.dart';
 import 'minute.dart';
 import 'package:random_color/random_color.dart';
 
-
 class DigitalClock extends StatefulWidget {
   DigitalClock(this.model);
 
@@ -38,9 +37,7 @@ class _DigitalClockState extends State<DigitalClock>
 
     currentColor = _randomColor.randomColor(
         colorSaturation: ColorSaturation.highSaturation,
-        colorBrightness: ColorBrightness.dark
-    );
-//    Colors.primaries[Random().nextInt(Colors.primaries.length)];
+        colorBrightness: ColorBrightness.dark);
     prevColor = currentColor;
     _animationController = AnimationController(
       vsync: this,
@@ -77,11 +74,10 @@ class _DigitalClockState extends State<DigitalClock>
             Duration(milliseconds: _dateTime.millisecond),
         _updateTime,
       );
+      // Calculating random Color
       currentColor = _randomColor.randomColor(
           colorSaturation: ColorSaturation.highSaturation,
-          colorBrightness: ColorBrightness.dark
-      );
-//          Colors.primaries[Random().nextInt(Colors.primaries.length)];
+          colorBrightness: ColorBrightness.dark);
     });
     _animationController.reset();
     _animationController.forward();
@@ -112,8 +108,8 @@ class _DigitalClockState extends State<DigitalClock>
         body: Container(
       alignment: Alignment.center,
       color: Theme.of(context).brightness == Brightness.light
-          ? Color.lerp(prevColor, currentColor, animProgress)
-          : Colors.black,
+          ? Colors.white30
+          : Colors.black, // Background color according to theme
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -122,6 +118,7 @@ class _DigitalClockState extends State<DigitalClock>
         children: <Widget>[
           HourView(
               widget.model,
+              //Text Color
               Theme.of(context).brightness == Brightness.light
                   ? Color.lerp(prevColor, currentColor, animProgress)
                   : Colors.black,
@@ -134,6 +131,7 @@ class _DigitalClockState extends State<DigitalClock>
               colorIntense),
           SizedBox(width: _isPortrait(context) ? 130 : 150),
           MinuteView(
+              //Text Color
               Theme.of(context).brightness == Brightness.light
                   ? Color.lerp(prevColor, currentColor, animProgress)
                   : Colors.black,
@@ -156,29 +154,3 @@ class _DigitalClockState extends State<DigitalClock>
         : false;
   }
 }
-
-/* _controller = AnimationController(
-      duration: Duration(minutes: 1) -
-          Duration(seconds: DateTime.now().second) -
-          Duration(milliseconds: DateTime.now().millisecond),
-      vsync: this,
-    )..repeat();*/
-
-/*Animatable<Color> background = TweenSequence<Color>([
-    TweenSequenceItem(
-      weight: 1.0,
-      tween: ColorTween(
-        begin: Colors.red,
-        end: Colors.green,
-      ),
-    ),
-    TweenSequenceItem(
-      weight: 1.0,
-      tween: ColorTween(
-        begin: Colors.green,
-        end: Colors.red,
-      ),
-    ),
-  ]);
-}*/
-//Colors.primaries[Random().nextInt(Colors.primaries.length)]

@@ -41,11 +41,9 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
       lowerBound: 0.00,
       upperBound: 1.25,
       duration: Duration(seconds: 1),
-    )..addListener(() =>
-        setState(() {
+    )..addListener(() => setState(() {
           animProgress = _animationController.value;
-        })
-    );
+        }));
 
     _animationController.reverse();
     _updateTime();
@@ -72,7 +70,7 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
       );
 
       _animationController.forward(from: 0.25);
-      _animationController.animateTo(1.0, curve: Curves.easeOut);
+      _animationController.animateTo(1.0, curve: Curves.fastOutSlowIn);
     });
   }
 
@@ -120,8 +118,6 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
       child: Stack(
           alignment: AlignmentDirectional.center,
           children: hourData.map((item) {
-
-
             // Calculating the values for position and animation
             final index = hourData.indexOf(item);
             top = top + ((index + animProgress) * widget.topProgress);

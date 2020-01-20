@@ -3,10 +3,9 @@ import 'package:gradient_text/gradient_text.dart';
 
 Widget textViews(bool isDarkMode, bool isHour, String text, Color color,
     double opacity, FontWeight weight) {
-
   final lightColors = [
-    Color.lerp(Colors.white, color, opacity),
-    Color.lerp(Colors.white, color, opacity)
+    Color.lerp(color, Colors.white30, opacity),
+    Color.lerp(color, Colors.white30, opacity)
   ];
 
   final darkColors = [
