@@ -37,9 +37,12 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
       lowerBound: 0.00,
       upperBound: 1.25,
       duration: Duration(seconds: 1),
-    )..addListener(() => setState(() {
-          animProgress = _animationController.value;
-        }));
+    )
+      ..addListener(() =>
+          setState(() {
+            animProgress = _animationController.value;
+          })
+      );
     _animationController.reverse();
     _updateTime();
   }
@@ -47,8 +50,9 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
   // Disposing animation controller
   @override
   void dispose() {
-    super.dispose();
+    _timer.cancel();
     _animationController.dispose();
+    super.dispose();
   }
 
   // Animating the controller in each min
