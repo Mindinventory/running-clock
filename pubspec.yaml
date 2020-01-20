@@ -12,6 +12,7 @@ dependencies:
     path: ../flutter_clock_helper
   cupertino_icons: ^0.1.2
   gradient_text: ^1.0.2
+  random_color: ^1.0.3
 
 dev_dependencies:
   flutter_test:

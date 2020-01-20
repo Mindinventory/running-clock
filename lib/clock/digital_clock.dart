@@ -8,6 +8,7 @@ import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
 import 'hour.dart';
 import 'minute.dart';
+import 'package:random_color/random_color.dart';
 
 
 class DigitalClock extends StatefulWidget {
@@ -24,6 +25,8 @@ class _DigitalClockState extends State<DigitalClock>
   Color currentColor;
   Color prevColor;
 
+  RandomColor _randomColor = RandomColor();
+
   AnimationController _animationController;
   Timer timer;
   DateTime _dateTime;
@@ -33,7 +36,11 @@ class _DigitalClockState extends State<DigitalClock>
   void initState() {
     super.initState();
 
-    currentColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+    currentColor = _randomColor.randomColor(
+        colorSaturation: ColorSaturation.highSaturation,
+        colorBrightness: ColorBrightness.dark
+    );
+//    Colors.primaries[Random().nextInt(Colors.primaries.length)];
     prevColor = currentColor;
     _animationController = AnimationController(
       vsync: this,
@@ -70,8 +77,11 @@ class _DigitalClockState extends State<DigitalClock>
             Duration(milliseconds: _dateTime.millisecond),
         _updateTime,
       );
-      currentColor =
-          Colors.primaries[Random().nextInt(Colors.primaries.length)];
+      currentColor = _randomColor.randomColor(
+          colorSaturation: ColorSaturation.highSaturation,
+          colorBrightness: ColorBrightness.dark
+      );
+//          Colors.primaries[Random().nextInt(Colors.primaries.length)];
     });
     _animationController.reset();
     _animationController.forward();
