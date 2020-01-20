@@ -3,8 +3,8 @@
 This project aims to provide a simple animated digital clock with dark and light mode.
 
 ## Preview
- ![image](https://git.mindinventory.com/mi-flutter/running_clock/raw/back_color/media/dark_mode.PNG "Title")
- ![image](https://git.mindinventory.com/mi-flutter/running_clock/raw/back_color/media/light_mode.PNG "Title")
+ ![image](https://git.mindinventory.com/mi-flutter/running_clock/raw/back_color/media/dark_mode.png "Title")
+ ![image](https://git.mindinventory.com/mi-flutter/running_clock/raw/back_color/media/light_mode.png "Title")
  
 ## Key Features
 It supports the following thing:
