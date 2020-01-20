@@ -21,22 +21,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-    - family: Segment7Standard
-      fonts:
-        - asset: assets/fonts/Segment7Standard.otf
-
-    - family: LCD14M
-      fonts:
-        - asset: assets/fonts/LCD14M.otf
-
-    - family: ledfontsharpRegular
-      fonts:
-        - asset: assets/fonts/ledfont-sharp-Regular.otf
-
-    - family: BBrick
-      fonts:
-        - asset: assets/fonts/BBrick.otf
-
     - family: BananaBrickTweaked
       fonts:
         - asset: assets/fonts/BananaBrickTweaked.otf

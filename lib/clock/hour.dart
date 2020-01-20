@@ -7,7 +7,7 @@ import 'common.dart';
 
 class HourView extends StatefulWidget {
   final ClockModel model;
-  final Color color2;
+  final Color fontColor;
   final double right;
   final double top;
   final double scale;
@@ -16,7 +16,7 @@ class HourView extends StatefulWidget {
   final double scaleProgress;
   final double colorIntense;
 
-  HourView(this.model, this.color2, this.right, this.top, this.scale,
+  HourView(this.model, this.fontColor, this.right, this.top, this.scale,
       this.opacity, this.topProgress, this.scaleProgress, this.colorIntense);
 
   @override
@@ -46,7 +46,7 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
         }));
 
     _animationController.reverse();
-    _updateTime();
+    _updateHour();
   }
 
   // Disposing animation controller
@@ -58,7 +58,7 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
   }
 
   // Animating the controller in each hour
-  void _updateTime() {
+  void _updateHour() {
     setState(() {
       _dateTime = DateTime.now();
       _timer = Timer(
@@ -66,7 +66,7 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
             Duration(minutes: _dateTime.minute) -
             Duration(seconds: _dateTime.second) -
             Duration(milliseconds: _dateTime.millisecond),
-        _updateTime,
+        _updateHour,
       );
 
       _animationController.forward(from: 0.25);
@@ -74,7 +74,7 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
     });
   }
 
-  _timeLogic() {
+  _hourLogic() {
     final hour =
         DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
 
@@ -107,7 +107,7 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _timeLogic();
+    _hourLogic();
 
     double right = widget.right;
     double top = widget.top;
@@ -135,13 +135,13 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
                   opacity: 1 - animProgress,
                   child: Transform.scale(
                     scale: scale,
-                    child: textViews(
+                    child: getClockText(
                         (Theme.of(context).brightness == Brightness.light)
                             ? false
                             : true,
                         true,
                         item,
-                        widget.color2,
+                        widget.fontColor,
                         opacity,
                         FontWeight.w100),
                   ),
@@ -154,13 +154,13 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
                 top: top,
                 child: Transform.scale(
                   scale: scale,
-                  child: textViews(
+                  child: getClockText(
                       (Theme.of(context).brightness == Brightness.light)
                           ? false
                           : true,
                       true,
                       item,
-                      widget.color2,
+                      widget.fontColor,
                       index == (hourData.length - 2) ? 0.0 : opacity,
                       FontWeight.w100),
                 ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'common.dart';
 
 class MinuteView extends StatefulWidget {
-  final Color color;
+  final Color fontColor;
   final double left;
   final double top;
   final double scale;
@@ -13,7 +13,7 @@ class MinuteView extends StatefulWidget {
   final double scaleProgress;
   final double colorIntense;
 
-  MinuteView(this.color, this.left, this.top, this.scale, this.opacity,
+  MinuteView(this.fontColor, this.left, this.top, this.scale, this.opacity,
       this.topProgress, this.scaleProgress, this.colorIntense);
 
   @override
@@ -41,7 +41,7 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
           animProgress = _animationController.value;
         }));
     _animationController.reverse();
-    _updateTime();
+    _updateMinute();
   }
 
   // Disposing animation controller
@@ -53,14 +53,14 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
   }
 
   // Animating the controller in each min
-  void _updateTime() {
+  void _updateMinute() {
     setState(() {
       _dateTime = DateTime.now();
       _timer = Timer(
         Duration(minutes: 1) -
             Duration(seconds: _dateTime.second) -
             Duration(milliseconds: _dateTime.millisecond),
-        _updateTime,
+        _updateMinute,
       );
 
       _animationController.forward(from: 0.25);
@@ -68,7 +68,7 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
     });
   }
 
-  _timeLogic() {
+  _minuteLogic() {
     final minute = DateFormat('mm').format(_dateTime);
 
     List<String> data = [];
@@ -95,7 +95,7 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _timeLogic();
+    _minuteLogic();
 
     double left = widget.left;
     double top = widget.top;
@@ -123,13 +123,13 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
                   opacity: 1 - animProgress,
                   child: Transform.scale(
                     scale: scale,
-                    child: textViews(
+                    child: getClockText(
                         (Theme.of(context).brightness == Brightness.light)
                             ? false
                             : true,
                         false,
                         item,
-                        widget.color,
+                        widget.fontColor,
                         opacity,
                         FontWeight.w100),
                   ),
@@ -142,13 +142,13 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
                   top: top,
                   child: Transform.scale(
                     scale: scale,
-                    child: textViews(
+                    child: getClockText(
                         (Theme.of(context).brightness == Brightness.light)
                             ? false
                             : true,
                         false,
                         item,
-                        widget.color,
+                        widget.fontColor,
                         index == (minData.length - 2) ? 0.0 : opacity,
                         FontWeight.w100),
                   ));
