@@ -3,8 +3,8 @@
 Nice animated digital clock with 'running' animations.
 
 ## Preview
- ![image](https://git.mindinventory.com/mi-flutter/running_clock/raw/back_color/media/dark_mode.png "Title")
- ![image](https://git.mindinventory.com/mi-flutter/running_clock/raw/back_color/media/light_mode.png "Title")
+ ![image](https://github.com/Mindinventory/running-clock/blob/back_color/media/light_mode.png?raw=true "Title")
+ ![image](https://github.com/Mindinventory/running-clock/blob/back_color/media/dark_mode.png?raw=true "Title")
  
 ## Key Features
 It supports the following thing:
