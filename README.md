@@ -13,11 +13,14 @@ It supports the following thing:
 - Animation when the time changes(for minute and hour)
 - Animating font color on every minute
 
-# LICENSE!
+## LICENSE!
 
-Image Collage Widget is [MIT-licensed](/LICENSE).
+Running Clock is [MIT-licensed](/LICENSE).
 
+## Credits
 
-# Let us know!
+Modified version of [Banana Brick font](https://fontlibrary.org/en/font/banana-brick) used
 
-We’d be really happy if you send us links to your projects where you use our component. Just send an email to sales@mindinventory.com And do let us know if you have any questions or suggestion regarding our work.
+## Let us know!
+
+We’d be really happy if you send us links to your projects where you use our clock. Just send an email to sales@mindinventory.com and do let us know if you have any questions or suggestion regarding our work.
