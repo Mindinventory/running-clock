@@ -40,7 +40,7 @@ class _MinuteState extends State<HourView> with TickerProviderStateMixin {
       value: animProgress,
       lowerBound: 0.00,
       upperBound: 1.25,
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 600),
     )..addListener(() => setState(() {
           animProgress = _animationController.value;
         }));

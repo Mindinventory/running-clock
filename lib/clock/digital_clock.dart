@@ -101,13 +101,13 @@ class _DigitalClockState extends State<DigitalClock>
     final scale = _isPortrait(context) ? 2.0 : 4.0;
     final opacity = 1.0;
     final scaleProgress = _isPortrait(context) ? 0.25 : 0.25;
-    final colorIntense = 0.2;
+    final colorIntense = Theme.of(context).brightness == Brightness.light ? 0.15 : 0.2;
 
     return Scaffold(
         body: Container(
       alignment: Alignment.center,
       color: Theme.of(context).brightness == Brightness.light
-          ? Colors.white30
+          ? Colors.white
           : Colors.black, // Background color according to theme
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
