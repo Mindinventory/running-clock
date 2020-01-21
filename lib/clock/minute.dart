@@ -36,7 +36,7 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
       value: animProgress,
       lowerBound: 0.00,
       upperBound: 1.25,
-      duration: Duration(milliseconds: 600),
+      duration: Duration(milliseconds: 800),
     )..addListener(() => setState(() {
           animProgress = _animationController.value;
         }));
@@ -63,8 +63,8 @@ class _MinuteState extends State<MinuteView> with TickerProviderStateMixin {
         _updateMinute,
       );
 
-      _animationController.forward(from: 0.25);
-      _animationController.animateTo(1.0, curve: Curves.fastOutSlowIn);
+      _animationController.forward(from: 0.0);
+      _animationController.animateTo(1.0, curve: Curves.linear);
     });
   }
 
