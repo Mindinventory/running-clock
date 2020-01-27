@@ -42,7 +42,7 @@ class _DigitalClockState extends State<DigitalClock>
       vsync: this,
       lowerBound: 0.0,
       upperBound: 1.0,
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 800),
     )..addListener(() {
         setState(() {
           animProgress = _animationController.value;
@@ -107,7 +107,7 @@ class _DigitalClockState extends State<DigitalClock>
         body: Container(
       alignment: Alignment.center,
       color: Theme.of(context).brightness == Brightness.light
-          ? Colors.white
+          ? Color.lerp(prevColor, currentColor, animProgress)
           : Colors.black, // Background color according to theme
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

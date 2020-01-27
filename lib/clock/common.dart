@@ -4,8 +4,8 @@ import 'package:gradient_text/gradient_text.dart';
 Widget getClockText(bool isDarkMode, bool isHour, String text, Color color,
     double fraction, FontWeight weight) {
   final lightColors = [
-    Color.lerp(lighten(color, 0.1), Colors.white, fraction),
-    Color.lerp(lighten(color, 0.3), Colors.white, fraction)
+    Color.lerp(Colors.white, color, fraction),
+    Color.lerp(Colors.white, color, fraction)
   ];
 
   final darkColors = [
