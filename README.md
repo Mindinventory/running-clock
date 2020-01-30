@@ -3,7 +3,6 @@
 Nice animated digital clock with 'running' animations.
 
 ## Preview
- ![image](https://github.com/Mindinventory/running-clock/blob/back_color/media/light.gif?raw=true "Title")
  ![image](https://github.com/Mindinventory/running-clock/blob/back_color/media/dark.gif?raw=true "Title")
  
 ## Key Features
